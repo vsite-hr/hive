@@ -1,0 +1,11 @@
+.gradle/
+.classpath
+.metadata
+.project
+.settings
+build/
+conf/hive.xml
+conf/logback.xml
+gradle/
+gradle.properties
+gradle-app.setting
