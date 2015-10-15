@@ -5,7 +5,7 @@
 	<hive>
 
 		<!-- URL that app is listening to -->
-		<BaseUrl>http://localhost:1800</BaseUrl>
+		<BaseUrl>http://localhost:1800/</BaseUrl>
 		
 		<!-- Writable folder for app's data -->
 		<DataPath>/var/local/hive/</DataPath>
