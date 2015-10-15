@@ -4,6 +4,15 @@
 
 	<hive>
 
+		<!-- URL that app is listening to -->
+		<BaseUrl>http://localhost:1800</BaseUrl>
+		
+		<!-- Writable folder for app's data -->
+		<DataPath>/var/local/hive/</DataPath>
+		
+		<!-- Poor guy that get all the spam from app :) -->
+		<SupervisorAddress>poor.guy@vsite.hr</SupervisorAddress>
+
 	</hive>
 
 </configuration>

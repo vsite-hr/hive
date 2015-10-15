@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,16 +33,8 @@ public class Hive {
         log.info("Welcome to Hive {}...", version);
         log.info("**************************************************");
 
-		try {
-			configuration = new XMLConfiguration();
-			configuration.setThrowExceptionOnMissing(true);
-			configuration.setDelimiterParsingDisabled(true);
-			configuration.load("hive.xml");
-			log.info("Configuration loaded from {}", configuration.getFile().getAbsolutePath());
-		} catch (ConfigurationException e) {
-			throw new RuntimeException("Could not load configuration", e);
-		}
-
+        HiveConfiguration.get();
+        
         log.info("Hive {} initialized in {} seconds", version, (System.currentTimeMillis() - startTime) / 1000);
 
 	}
@@ -87,6 +77,5 @@ public class Hive {
 	private static Hive instance = null;
 
 	private String version = "0.TODO";	// TODO
-	private XMLConfiguration configuration;
 
 }
