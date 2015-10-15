@@ -17,7 +17,10 @@ public class HiveCmd {
 		instance.start();
         try {
         	BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        	in.readLine();	// TODO should wait for Ctrl+C instead
+        	String line;
+        	do {
+        		line = in.readLine();	// TODO should wait for Ctrl+C instead
+        	} while (line != null && !line.equals("q"));   
 		} catch (IOException e) {
 			log.error("Exception in main event loop", e);
 		}
