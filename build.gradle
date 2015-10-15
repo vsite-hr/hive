@@ -2,11 +2,16 @@ import org.apache.tools.ant.filters.*
 
 plugins {
 	id 'java'
+	id 'application'
 }
 
-version = '0.0.0-pre'
-
 sourceCompatibility = 1.8
+version = '0.0.0-pre'
+mainClassName = 'hr.vsite.hive.HiveCmd'
+
+run {
+	classpath += files("${conf}")
+}
 
 repositories {
     jcenter()
