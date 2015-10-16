@@ -9,3 +9,4 @@ conf/logback.xml
 gradle/
 gradle.properties
 gradle-app.setting
+/bin/

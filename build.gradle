@@ -10,7 +10,14 @@ version = '0.0.0-pre'
 mainClassName = 'hr.vsite.hive.HiveCmd'
 
 run {
-	classpath += files("${conf}")
+	classpath += files("${System.env.HIVE_CONF}")
+}
+
+startScripts {
+	doLast {
+		unixScript.text = unixScript.text.replace('CLASSPATH=', 'CLASSPATH=$HIVE_CONF:') 
+		windowsScript.text = windowsScript.text.replace('set CLASSPATH=', 'set CLASSPATH=%HIVE_CONF%;')
+	}
 }
 
 repositories {
