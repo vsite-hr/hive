@@ -4,15 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class HiveProperties extends Properties {
 
-	public static HiveProperties get() {
-		if (instance == null)
-			instance = new HiveProperties();
-		return instance;
-	}
-	
-	public HiveProperties() {
+	HiveProperties() {
 
 		super();
 
@@ -28,8 +25,6 @@ public class HiveProperties extends Properties {
 	public String getVersion() { return version; }
 
 	private static final long serialVersionUID = 1L;
-
-	private static HiveProperties instance = null;
 
 	private final String version;
 

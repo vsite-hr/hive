@@ -13,6 +13,14 @@
 		<!-- Poor guy that get all the spam from app :) -->
 		<SupervisorAddress>poor.guy@vsite.hr</SupervisorAddress>
 
+		<services>
+		
+			<jetty>
+				<Enabled>true</Enabled>
+			</jetty>
+			
+		</services>
+
 	</hive>
 
 </configuration>

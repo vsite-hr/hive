@@ -11,10 +11,10 @@ public class HiveCmd {
 
 	public static void main(String[] args) {
 
-		Hive instance = Hive.get();
+		Hive hive = Hive.get();
 
-		instance.init();
-		instance.start();
+		hive.init();
+		hive.start();
         try {
         	BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         	String line;
@@ -25,8 +25,8 @@ public class HiveCmd {
 			log.error("Exception in main event loop", e);
 		}
 
-		instance.stop();
-		instance.destroy();
+		hive.stop();
+		hive.destroy();
 
 	}
 
