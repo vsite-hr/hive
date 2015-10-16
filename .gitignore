@@ -4,8 +4,7 @@
 .project
 .settings
 build/
-conf/hive.xml
-conf/logback.xml
+conf/
 gradle/
 gradle.properties
 gradle-app.setting
