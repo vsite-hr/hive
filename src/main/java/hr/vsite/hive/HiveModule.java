@@ -6,8 +6,9 @@ public class HiveModule extends AbstractModule {
 
 	@Override 
 	protected void configure() {
-		bind(HiveProperties.class).asEagerSingleton();
-		bind(HiveConfiguration.class).asEagerSingleton();
+		bind(HiveProperties.class);
+		bind(HiveConfiguration.class);
+		bind(HiveEventBus.class);
 	}
 
 }

@@ -16,7 +16,7 @@ public class DaoModule extends AbstractModule {
 
 	@Override 
 	protected void configure() {
-		bind(HiveDao.class).to(NullDao.class);	// TODO make configurable
+		bind(HiveDao.class).to(NullDao.class).asEagerSingleton();	// TODO make configurable
 	}
 
 	// TODO use ThrowingProviders (https://github.com/google/guice/wiki/ThrowingProviders)

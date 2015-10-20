@@ -34,7 +34,8 @@ dependencies {
     		'commons-configuration:commons-configuration:1.10',
     		'commons-collections:commons-collections:3.2.1',	// optional, but needed, for XML support in commons-configuration
     		'commons-daemon:commons-daemon:1.0.15',
-    		'com.google.inject:guice:4.0'
+    		'com.google.inject:guice:4.0',
+    		'com.google.guava:guava:18.0'
 
     testCompile	'junit:junit:4.12'
 
