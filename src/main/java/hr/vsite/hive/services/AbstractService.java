@@ -1,13 +1,7 @@
 package hr.vsite.hive.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.eventbus.Subscribe;
-
 import hr.vsite.hive.HiveConfiguration;
 import hr.vsite.hive.HiveDestroyEvent;
-import hr.vsite.hive.HiveEventBus;
 import hr.vsite.hive.HiveInitEvent;
 import hr.vsite.hive.HiveStartEvent;
 import hr.vsite.hive.HiveStopEvent;
@@ -20,52 +14,19 @@ import hr.vsite.hive.HiveStopEvent;
  */ 
 public abstract class AbstractService implements Service {
 
-	AbstractService(HiveConfiguration conf, HiveEventBus eventBus, String key) {
+	AbstractService(HiveConfiguration conf, String key) {
 		this.key = key;
 		this.enabled = conf.getBoolean("hive.services." + key + ".Enabled");
-		eventBus.register(this);
 	}
 	
 	@Override
 	public boolean isEnabled() { return enabled; }
 
 	@Override
-	public Service.State getState() { return state; }
-
-	@Subscribe
-	public void onHiveInit(HiveInitEvent event) {
-		if (!enabled)
-			return;
-		try {
-			init();
-		} catch (Exception e) {
-			log.error("Error initializing {}", key, e);
+	public Service.State getState() {
+		synchronized (state) {
+			return state;
 		}
-	}
-
-	@Subscribe
-	public void onHiveStart(HiveStartEvent event) {
-		if (!enabled)
-			return;
-		try {
-			start();
-		} catch (Exception e) {
-			log.error("Error starting {}", key, e);
-		}
-	}
-
-	@Subscribe
-	public void onHiveStop(HiveStopEvent event) {
-		if (!enabled || state != Service.State.Running)
-			return;
-		stop();
-	}
-
-	@Subscribe
-	public void onHiveDestroy(HiveDestroyEvent event) {
-		if (!enabled || state != Service.State.Stopped)
-			return;
-		destroy();
 	}
 
 	@Override
@@ -112,8 +73,6 @@ public abstract class AbstractService implements Service {
 	protected abstract void doStart() throws Exception;
 	protected abstract void doStop();
 	protected abstract void doDestroy();
-
-	private static final Logger log = LoggerFactory.getLogger(AbstractService.class);
 
 	private final String key;
 	private final boolean enabled;

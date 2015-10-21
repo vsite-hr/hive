@@ -1,5 +1,8 @@
 package hr.vsite.hive;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -14,6 +17,8 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import hr.vsite.hive.dao.DaoModule;
+import hr.vsite.hive.services.JettyService;
+import hr.vsite.hive.services.Service;
 import hr.vsite.hive.services.ServiceModule;
 
 public class Hive {
@@ -43,6 +48,12 @@ public class Hive {
 		log.info("Welcome to Hive {}...", props.getVersion());
 		log.info("**************************************************");
 
+		// TODO use discovery (use injector.findBindingsByType maybe?)
+		serviceClasses = new HashSet<Class<? extends Service>>();
+		serviceClasses.add(JettyService.class);
+		
+		initServices();
+		
 		schedule(Garbageman.class, "hive.garbageman.Schedule");
 		
 		eventBus.post(new HiveInitEvent(this));
@@ -53,6 +64,8 @@ public class Hive {
 		
 		log.info("Hive {} starting...", props.getVersion());
 		
+		startServices();
+		
 		scheduler.start();
 		
 		eventBus.post(new HiveStartEvent(this));
@@ -62,7 +75,9 @@ public class Hive {
 	public void stop() {
 		
 		log.info("Hive {} stopping...", props.getVersion());
-		
+
+		stopServices();
+
 		try {
 			scheduler.standby();
 		} catch (SchedulerException e) {
@@ -77,6 +92,8 @@ public class Hive {
 
 		log.info("Hive {} is initializing shutdown...", props.getVersion());
 		
+		destroyServices();
+
 		try {
 			scheduler.shutdown();
 		} catch (SchedulerException e) {
@@ -90,6 +107,58 @@ public class Hive {
 		
 	}
 
+	private void initServices() {
+		for (Class<? extends Service> serviceClass : serviceClasses) {
+			Service service = injector.getInstance(serviceClass);
+			if (service.isEnabled()) {
+				try {
+					service.init();
+				} catch (Exception e) {
+					log.error("Unable to init service {}", serviceClass.getName(), e);
+				}
+			}
+		}
+	}
+	
+	private void startServices() {
+		for (Class<? extends Service> serviceClass : serviceClasses) {
+			Service service = injector.getInstance(serviceClass);
+			if (service.isEnabled() && service.getState() == Service.State.Stopped) {
+				try {
+					service.start();
+				} catch (Exception e) {
+					log.error("Unable to start service {}", serviceClass.getName(), e);
+				}
+			}
+		}
+	}
+	
+	private void stopServices() {
+		for (Class<? extends Service> serviceClass : serviceClasses) {
+			Service service = injector.getInstance(serviceClass);
+			if (service.isEnabled() && service.getState() == Service.State.Running) {
+				try {
+					service.stop();
+				} catch (Exception e) {
+					log.error("Unable to stop service {}", serviceClass.getName(), e);
+				}
+			}
+		}
+	}
+	
+	private void destroyServices() {
+		for (Class<? extends Service> serviceClass : serviceClasses) {
+			Service service = injector.getInstance(serviceClass);
+			if (service.isEnabled() && service.getState() == Service.State.Stopped) {
+				try {
+					service.destroy();
+				} catch (Exception e) {
+					log.error("Unable to destroy service {}", serviceClass.getName(), e);
+				}
+			}
+		}
+	}
+	
 	private void schedule(Class<? extends Job> clazz, String scheduleKey) throws SchedulerException {
 
 		CronTrigger trigger;
@@ -114,5 +183,6 @@ public class Hive {
 	private HiveConfiguration conf = null;
 	private HiveEventBus eventBus = null;
 	private Scheduler scheduler = null;
+	private Set<Class<? extends Service>> serviceClasses;
 	
 }

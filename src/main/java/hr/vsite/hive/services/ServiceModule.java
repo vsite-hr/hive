@@ -6,7 +6,7 @@ public class ServiceModule extends AbstractModule {
 
 	@Override 
 	protected void configure() {
-		bind(JettyService.class).asEagerSingleton();
+		bind(JettyService.class);
 	}
 
 }
