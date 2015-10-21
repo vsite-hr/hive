@@ -19,5 +19,7 @@ public class NullDao extends AbstractDao {
 	@Override
 	public void close() throws Exception {}
 
+	@Override
+	public void archive(int daysBack) {}
 	
 }

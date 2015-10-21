@@ -6,4 +6,6 @@ public interface HiveDao {
 	
 	void rollback();
 	
+	void archive(int daysBack);
+	
 }

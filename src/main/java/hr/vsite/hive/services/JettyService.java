@@ -14,8 +14,7 @@ public class JettyService extends AbstractService {
 
 	@Inject
 	public JettyService(HiveConfiguration conf, HiveEventBus eventBus) {
-		super(conf, "jetty");
-		eventBus.register(this);
+		super(conf, eventBus, "jetty");
 	}
 
 	@Override

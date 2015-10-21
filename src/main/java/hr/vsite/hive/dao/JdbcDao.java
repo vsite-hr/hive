@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public abstract class JdbcDao extends AbstractDao {
 
 	JdbcDao(Connection conn) {
+		super();
 		this.conn = conn;
 	}
 

@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 
 import hr.vsite.hive.HiveConfiguration;
 import hr.vsite.hive.HiveDestroyEvent;
+import hr.vsite.hive.HiveEventBus;
 import hr.vsite.hive.HiveInitEvent;
 import hr.vsite.hive.HiveStartEvent;
 import hr.vsite.hive.HiveStopEvent;
@@ -19,9 +20,10 @@ import hr.vsite.hive.HiveStopEvent;
  */ 
 public abstract class AbstractService implements Service {
 
-	AbstractService(HiveConfiguration conf, String key) {
+	AbstractService(HiveConfiguration conf, HiveEventBus eventBus, String key) {
 		this.key = key;
 		this.enabled = conf.getBoolean("hive.services." + key + ".Enabled");
+		eventBus.register(this);
 	}
 	
 	@Override

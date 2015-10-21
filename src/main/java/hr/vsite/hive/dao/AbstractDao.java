@@ -15,5 +15,10 @@ public abstract class AbstractDao implements HiveDao, AutoCloseable {
 	public void rollback() {
 		throw new NotImplementedException();
 	}
-	
+
+	@Override
+	public void archive(int daysBack) {
+		throw new NotImplementedException();
+	}
+
 }

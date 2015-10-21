@@ -21,6 +21,12 @@
 			
 		</services>
 
+		<!-- Garbageman cleans old stuff, keeping only data from DaysBack days -->
+		<garbageman>
+			<Schedule>00 00 01 * * ?</Schedule>
+			<DaysBack>11</DaysBack>
+		</garbageman>
+
 	</hive>
 
 </configuration>
