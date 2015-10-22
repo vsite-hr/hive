@@ -53,10 +53,19 @@ processResources {
 distributions {
 	main {
 		contents {
+			
 			exclude('conf/hive.xml')
+			rename('hive.template.xml', 'hive.xml')
+			
 			exclude('conf/logback.xml')
+			rename('logback.template.xml', 'logback.xml')
+			
 			exclude('conf/jdbc.properties')
+			rename('jdbc.template.properties', 'jdbc.properties')
+			
 			exclude('conf/jetty.xml')
+			rename('jetty.template.xml', 'jetty.xml')
+			
 		}
 	}
 }
