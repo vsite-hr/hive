@@ -15,8 +15,8 @@ run {
 
 startScripts {
 	doLast {
-		unixScript.text = unixScript.text.replace('CLASSPATH=', 'CLASSPATH=$HIVE_CONF:') 
-		windowsScript.text = windowsScript.text.replace('set CLASSPATH=', 'set CLASSPATH=%HIVE_CONF%;')
+		unixScript.text = unixScript.text.replace('CLASSPATH=', 'CLASSPATH=$HIVE_CONF:$APP_HOME/conf:') 
+		windowsScript.text = windowsScript.text.replace('set CLASSPATH=', 'set CLASSPATH=%HIVE_CONF%;%APP_HOME%\\conf;')
 	}
 }
 
@@ -45,4 +45,15 @@ dependencies {
 
 processResources {
     filter ReplaceTokens, tokens: ['version': project.version]
+}
+
+distributions {
+	main {
+		contents {
+			exclude('conf/hive.xml')
+			exclude('conf/logback.xml')
+			exclude('conf/jdbc.properties')
+			exclude('conf/jetty.xml')
+		}
+	}
 }

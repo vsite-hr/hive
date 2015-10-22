@@ -4,8 +4,11 @@
 .project
 .settings
 build/
-conf/
 gradle/
 gradle.properties
 gradle-app.setting
-/bin/
+bin/
+src/main/dist/conf/hive.xml
+src/main/dist/conf/jdbc.properties
+src/main/dist/conf/jetty.xml
+src/main/dist/conf/logback.xml
