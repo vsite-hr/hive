@@ -1,4 +1,4 @@
-package hr.vsite.hive.services;
+package hr.vsite.hive.services.jetty;
 
 import java.io.InputStream;
 
@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hr.vsite.hive.HiveConfiguration;
+import hr.vsite.hive.services.AbstractService;
 
 @Singleton
 public class JettyService extends AbstractService {
@@ -30,6 +31,8 @@ public class JettyService extends AbstractService {
 			server = Server.class.cast(jettyConf.configure());
 		}
 
+		// TODO set servlet context param "resteasy.logger.type" to "SLF4J"
+		
 		log.info("Jetty service initialized");
 		
 	}

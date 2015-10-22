@@ -77,24 +77,10 @@
 				</Arg>
 			</Call>
 			<Set name="handler">
-				<New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
-					<Set name="handlers">
-						<Array type="org.eclipse.jetty.server.Handler">
-							<Item>
-								<New id="ResourceHandler" class="org.eclipse.jetty.server.handler.ResourceHandler">
-									<Set name="welcomeFiles">
-										<Array type="String">
-											<Item>index.html</Item>
-										</Array>
-									</Set>
-									<Set name="resourceBase">./web/</Set>
-								</New>
-							</Item>
-							<Item>
-								<New id="DefaultHandler" class="org.eclipse.jetty.server.handler.DefaultHandler"/>
-							</Item>
-						</Array>
-					</Set>
+				<New id="WebAppContext" class="org.eclipse.jetty.webapp.WebAppContext">
+					<Set name="contextPath">/</Set>
+					<Set name="war">./war</Set>
+					<Set name="parentLoaderPriority">true</Set>
 				</New>
 			</Set>
 		</New>
