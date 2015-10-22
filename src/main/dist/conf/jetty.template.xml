@@ -64,6 +64,18 @@
 	<Set name="handler">
 		<New id="GzipHandler" class="org.eclipse.jetty.server.handler.gzip.GzipHandler">
 			<Set name="minGzipSize">2048</Set>
+			<Call name="addIncludedMimeTypes">
+				<Arg>
+					<Array type="String">
+						<Item>text/html</Item>
+						<Item>text/xml</Item>
+						<Item>text/plain</Item>
+						<Item>text/css</Item>
+						<Item>text/javascript</Item>
+						<Item>application/json</Item>
+					</Array>
+				</Arg>
+			</Call>
 			<Set name="handler">
 				<New id="Handlers" class="org.eclipse.jetty.server.handler.HandlerCollection">
 					<Set name="handlers">
