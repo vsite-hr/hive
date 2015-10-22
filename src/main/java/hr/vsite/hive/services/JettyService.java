@@ -1,11 +1,14 @@
 package hr.vsite.hive.services;
 
-import java.net.InetSocketAddress;
+import java.io.InputStream;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.xml.XmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +27,23 @@ public class JettyService extends AbstractService {
 	@Override
 	public void doInit() throws Exception {
 
-		String host = getConf().getHost();
-		int port = getConf().getInt(getConfKey("Port"));
-		server = new Server(new InetSocketAddress(host, port));
-
-		log.info("Jetty service initialized at {}:{}", host, port);
+		try (InputStream istream = ClassLoader.getSystemResourceAsStream("jetty.xml")) {
+			XmlConfiguration jettyConf = new XmlConfiguration(istream);
+			server = Server.class.cast(jettyConf.configure());
+		}
+		
+		int serverConnectorCount = 0;
+		for (Connector connector : server.getConnectors())
+			if (ServerConnector.class.isInstance(connector)) {
+				++serverConnectorCount;
+				ServerConnector serverConnector = ServerConnector.class.cast(connector);
+				log.debug("Using connector {}:{}", serverConnector.getHost() != null ? serverConnector.getHost() : "", serverConnector.getPort());
+			}
+		
+		if (serverConnectorCount == 0)
+			log.warn("Jetty does not have any HTTP connectors configured?!");
+		
+		log.info("Jetty service initialized");
 		
 	}
 

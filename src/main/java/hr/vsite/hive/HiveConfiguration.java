@@ -26,9 +26,6 @@ public class HiveConfiguration extends XMLConfiguration {
             throw new RuntimeException("Could not load configuration", e);
         }
 		
-		host = getString("hive.Host");
-		log.info("Host is {}", host);
-		
 		dataPath = FileSystems.getDefault().getPath(getString("hive.DataPath"));
 		log.info("Data path is {}", dataPath);
 
@@ -38,7 +35,6 @@ public class HiveConfiguration extends XMLConfiguration {
 
 	}
 
-    public String getHost() { return host; }
     public Path getDataPath() { return dataPath; }
     public Path getSubDataPath(String subfolder) { return dataPath.resolve(subfolder); }
 	public String getSupervisorAddress() { return supervisorAddress; }
@@ -46,7 +42,6 @@ public class HiveConfiguration extends XMLConfiguration {
     private static final Logger log = LoggerFactory.getLogger(HiveConfiguration.class);
 	private static final long serialVersionUID = 1L;
 
-    private final String host;
     private final Path dataPath;
     private final String supervisorAddress;
 

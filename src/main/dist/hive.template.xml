@@ -4,9 +4,6 @@
 
 	<hive>
 
-		<!-- host that app is listening on -->
-		<Host>localhost</Host>
-		
 		<!-- Writable folder for app's data -->
 		<DataPath>/var/local/hive/</DataPath>
 		
@@ -17,7 +14,6 @@
 		
 			<jetty>
 				<Enabled>true</Enabled>
-				<Port>1800</Port>
 			</jetty>
 			
 		</services>
