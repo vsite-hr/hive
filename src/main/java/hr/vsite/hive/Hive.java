@@ -20,7 +20,6 @@ import hr.vsite.hive.dao.DaoModule;
 import hr.vsite.hive.services.Service;
 import hr.vsite.hive.services.ServiceModule;
 import hr.vsite.hive.services.jetty.JettyService;
-import hr.vsite.hive.services.jetty.api.resource.JettyResourceModule;
 
 public class Hive {
 
