@@ -1,5 +1,7 @@
 package hr.vsite.hive.services;
 
+import java.net.InetSocketAddress;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -22,10 +24,11 @@ public class JettyService extends AbstractService {
 	@Override
 	public void doInit() throws Exception {
 
+		String host = getConf().getHost();
 		int port = getConf().getInt(getConfKey("Port"));
-		server = new Server(port);
+		server = new Server(new InetSocketAddress(host, port));
 
-		log.info("Jetty service initialized on port {}", port);
+		log.info("Jetty service initialized at {}:{}", host, port);
 		
 	}
 
