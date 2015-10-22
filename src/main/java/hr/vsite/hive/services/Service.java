@@ -10,6 +10,11 @@ public interface Service {
 	}
 	
 	/**
+	 * Unique identifier for this service
+	 */
+	String getKey();
+	
+	/**
 	 * Should this service start or not?
 	 */
 	boolean isEnabled();
