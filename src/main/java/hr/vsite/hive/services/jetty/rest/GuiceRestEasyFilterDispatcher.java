@@ -19,14 +19,19 @@ import hr.vsite.hive.services.jetty.rest.resource.ResourceModule;
  */
 public class GuiceRestEasyFilterDispatcher extends Filter30Dispatcher {
 
+	@Inject
+	GuiceRestEasyFilterDispatcher(Injector parentInjector) {
+		this.parentInjector = parentInjector;
+	}
+	
 	@Override
-	public void init(FilterConfig cfg) throws ServletException {
-		
-		super.init(cfg);
+	public void init(FilterConfig config) throws ServletException {
 
-        Registry registry = getDispatcher().getRegistry();
-        ResteasyProviderFactory providerFactory = getDispatcher().getProviderFactory();
-        
+		super.init(config);
+
+		Registry registry = getDispatcher().getRegistry();
+		ResteasyProviderFactory providerFactory = getDispatcher().getProviderFactory();
+
 		ModuleProcessor processor = new ModuleProcessor(registry, providerFactory);
 
 		Injector injector = parentInjector.createChildInjector(new ResourceModule());
@@ -37,10 +42,9 @@ public class GuiceRestEasyFilterDispatcher extends Filter30Dispatcher {
 			injector = injector.getParent();
 			processor.processInjector(injector);
 		}      
-        
+
 	}
 	
-	@Inject
-	private Injector parentInjector = null;
+	private final Injector parentInjector;
 	
 }
