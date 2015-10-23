@@ -13,12 +13,7 @@ import org.quartz.TriggerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-import hr.vsite.hive.dao.DaoModule;
 import hr.vsite.hive.services.Service;
-import hr.vsite.hive.services.ServiceModule;
 import hr.vsite.hive.services.jetty.JettyService;
 
 public class Hive {
@@ -31,21 +26,12 @@ public class Hive {
 
 	private Hive() {}
 
-	// TODO extract as singleton
-	public Injector getInjector() { return injector; }
-	
 	public void	init() throws Exception {
-
-		injector = Guice.createInjector(
-			new DaoModule(),
-			new HiveModule(),
-			new ServiceModule()
-		);
         
-		props = injector.getInstance(HiveProperties.class);
-		conf = injector.getInstance(HiveConfiguration.class);
-		eventBus = injector.getInstance(HiveEventBus.class);
-		scheduler = injector.getInstance(Scheduler.class);
+		props = HiveInjector.get().getInstance(HiveProperties.class);
+		conf = HiveInjector.get().getInstance(HiveConfiguration.class);
+		eventBus = HiveInjector.get().getInstance(HiveEventBus.class);
+		scheduler = HiveInjector.get().getInstance(Scheduler.class);
 		
 		log.info("**************************************************");
 		log.info("Welcome to Hive {}...", props.getVersion());
@@ -112,7 +98,7 @@ public class Hive {
 
 	private void initServices() {
 		for (Class<? extends Service> serviceClass : serviceClasses) {
-			Service service = injector.getInstance(serviceClass);
+			Service service = HiveInjector.get().getInstance(serviceClass);
 			if (service.isEnabled()) {
 				try {
 					service.init();
@@ -125,7 +111,7 @@ public class Hive {
 	
 	private void startServices() {
 		for (Class<? extends Service> serviceClass : serviceClasses) {
-			Service service = injector.getInstance(serviceClass);
+			Service service = HiveInjector.get().getInstance(serviceClass);
 			if (service.isEnabled() && service.getState() == Service.State.Stopped) {
 				try {
 					service.start();
@@ -138,7 +124,7 @@ public class Hive {
 	
 	private void stopServices() {
 		for (Class<? extends Service> serviceClass : serviceClasses) {
-			Service service = injector.getInstance(serviceClass);
+			Service service = HiveInjector.get().getInstance(serviceClass);
 			if (service.isEnabled() && service.getState() == Service.State.Running) {
 				try {
 					service.stop();
@@ -151,7 +137,7 @@ public class Hive {
 	
 	private void destroyServices() {
 		for (Class<? extends Service> serviceClass : serviceClasses) {
-			Service service = injector.getInstance(serviceClass);
+			Service service = HiveInjector.get().getInstance(serviceClass);
 			if (service.isEnabled() && service.getState() == Service.State.Stopped) {
 				try {
 					service.destroy();
@@ -181,7 +167,6 @@ public class Hive {
 	private static final Logger log = LoggerFactory.getLogger(Hive.class);
 	private static Hive instance = null;
 
-	private Injector injector = null;
 	private HiveProperties props = null;
 	private HiveConfiguration conf = null;
 	private HiveEventBus eventBus = null;
