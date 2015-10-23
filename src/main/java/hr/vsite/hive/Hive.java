@@ -31,6 +31,9 @@ public class Hive {
 
 	private Hive() {}
 
+	// TODO extract as singleton
+	public Injector getInjector() { return injector; }
+	
 	public void	init() throws Exception {
 
 		injector = Guice.createInjector(

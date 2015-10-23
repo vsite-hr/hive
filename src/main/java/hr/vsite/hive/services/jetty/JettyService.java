@@ -31,8 +31,6 @@ public class JettyService extends AbstractService {
 			server = Server.class.cast(jettyConf.configure());
 		}
 
-		// TODO set servlet context param "resteasy.logger.type" to "SLF4J"
-		
 		log.info("Jetty service initialized");
 		
 	}

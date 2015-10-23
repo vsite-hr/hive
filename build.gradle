@@ -35,6 +35,7 @@ dependencies {
 			'commons-collections:commons-collections:3.2.1',	// optional, but needed, for XML support in commons-configuration
 			'commons-daemon:commons-daemon:1.0.15',
 			'com.google.inject:guice:4.0',
+			'com.google.inject.extensions:guice-servlet:4.0',
 			'com.google.guava:guava:18.0',
 			'org.quartz-scheduler:quartz:2.2.2',
 			'org.eclipse.jetty.aggregate:jetty-all:9.3.5.v20151012',
