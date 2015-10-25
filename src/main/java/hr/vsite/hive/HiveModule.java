@@ -19,6 +19,7 @@ public class HiveModule extends AbstractModule {
 		bind(HiveEventBus.class);
 		bind(JobFactory.class).to(GuiceJobFactory.class);
 		bind(Garbageman.class);
+		bind(HiveStatus.class);
 	}
 
 	@Provides

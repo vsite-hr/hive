@@ -1,6 +1,5 @@
 package hr.vsite.hive.services.jetty.rest;
 
-import javax.inject.Inject;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 
@@ -10,17 +9,21 @@ import org.jboss.resteasy.spi.Registry;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
 import com.google.inject.Injector;
-
-import hr.vsite.hive.services.jetty.rest.resource.ResourceModule;
+import com.google.inject.Module;
 
 /**
+ * <p>
  * Substitute for org.jboss.resteasy.plugins.guice.GuiceResteasyBootstrapServletContextListener,
  * because listeners can't get app-wide Guice Injector (at least not if instantiated from web.xml what is what we use)
+ * </p>
+ * <p>
+ * To separate injection between different API versions, subclass this class
+ * and provide modules that define resources for given API version.
+ * </p>
  */
-public class GuiceRestEasyFilterDispatcher extends Filter30Dispatcher {
+public abstract class AbstractGuiceFilterDispatcher extends Filter30Dispatcher {
 
-	@Inject
-	GuiceRestEasyFilterDispatcher(Injector parentInjector) {
+	protected AbstractGuiceFilterDispatcher(Injector parentInjector) {
 		this.parentInjector = parentInjector;
 	}
 	
@@ -34,7 +37,7 @@ public class GuiceRestEasyFilterDispatcher extends Filter30Dispatcher {
 
 		ModuleProcessor processor = new ModuleProcessor(registry, providerFactory);
 
-		Injector injector = parentInjector.createChildInjector(new ResourceModule());
+		Injector injector = parentInjector.createChildInjector(getModule());
 
 		processor.processInjector(injector);
 
@@ -44,6 +47,8 @@ public class GuiceRestEasyFilterDispatcher extends Filter30Dispatcher {
 		}      
 
 	}
+	
+	protected abstract Module getModule();
 	
 	private final Injector parentInjector;
 	

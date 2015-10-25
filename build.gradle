@@ -41,7 +41,9 @@ dependencies {
 			'org.eclipse.jetty.aggregate:jetty-all:9.3.5.v20151012',
 			'org.jboss.resteasy:resteasy-jaxrs-all:3.0.13.Final',
 			'org.jboss.resteasy:resteasy-servlet-initializer:3.0.13.Final',
-			'org.jboss.resteasy:resteasy-guice:3.0.13.Final'
+			'org.jboss.resteasy:resteasy-guice:3.0.13.Final',
+			'org.jboss.resteasy:resteasy-jaxb-provider:3.0.13.Final',
+			'org.jboss.resteasy:resteasy-jettison-provider:3.0.13.Final'
 
     testCompile	'junit:junit:4.12'
 
