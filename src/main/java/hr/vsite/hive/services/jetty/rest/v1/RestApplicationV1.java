@@ -18,5 +18,5 @@ public class RestApplicationV1 extends Application {
 	public Set<Class<?>> getClasses() {
 		return Collections.emptySet();
 	}
-	
+
 }

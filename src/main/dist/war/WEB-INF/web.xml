@@ -9,6 +9,10 @@
 
 	<display-name>Hive</display-name>
 
+	<listener>
+		<listener-class>hr.vsite.hive.services.jetty.HiveGuiceServletContextListener</listener-class>
+	</listener>
+
 	<filter>
 		<filter-name>GuiceFilter</filter-name>
 		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
@@ -17,10 +21,6 @@
 		<filter-name>GuiceFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<listener>
-		<listener-class>hr.vsite.hive.services.jetty.HiveGuiceServletContextListener</listener-class>
-	</listener>
 
 	<!-- NOTE: do not configure servlets and filters here, but in hr.vsite.hive.services.jetty.rest.HiveServletModule -->
 

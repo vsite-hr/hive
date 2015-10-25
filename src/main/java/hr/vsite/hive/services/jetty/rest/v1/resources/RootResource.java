@@ -12,12 +12,8 @@ import com.google.inject.Injector;
 import hr.vsite.hive.HiveStatus;
 import hr.vsite.hive.services.jetty.rest.v1.jaxb.JAXBHiveStatus;
 
-@Path("/test")
+@Path("")
 public class RootResource {
-
-	RootResource() {
-		this.injector = null;
-	}
 
 	@Inject
 	public RootResource(Injector injector) {
@@ -25,19 +21,19 @@ public class RootResource {
 	}
 	
 	@GET
-	@Path("/status")
+	@Path("status")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public JAXBHiveStatus status() {
 		return new JAXBHiveStatus(injector.getInstance(HiveStatus.class));
 	}
    
 	@GET
-	@Path("/ip")
+	@Path("ip")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String ip() {
-		return "pong";
+		return "pong";	// TODO @Inject HttpRequest and extract real IP
 	}
-   
-    private final Injector injector;
+
+	private final Injector injector;
     
 }
