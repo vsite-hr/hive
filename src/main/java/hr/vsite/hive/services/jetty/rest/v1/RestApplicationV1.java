@@ -1,6 +1,7 @@
 package hr.vsite.hive.services.jetty.rest.v1;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ws.rs.core.Application;
@@ -17,6 +18,11 @@ public class RestApplicationV1 extends Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		return Collections.emptySet();
+	}
+
+	@Override
+	public Map<String, Object> getProperties() {
+		return Collections.emptyMap();
 	}
 
 }

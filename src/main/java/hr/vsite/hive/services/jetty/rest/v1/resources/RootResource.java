@@ -1,10 +1,11 @@
 package hr.vsite.hive.services.jetty.rest.v1.resources;
 
 import javax.inject.Inject;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import com.google.inject.Injector;
@@ -30,8 +31,8 @@ public class RootResource {
 	@GET
 	@Path("ip")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String ip() {
-		return "pong";	// TODO @Inject HttpRequest and extract real IP
+	public String ip(@Context HttpServletRequest request) {
+		return request.getRemoteAddr();
 	}
 
 	private final Injector injector;

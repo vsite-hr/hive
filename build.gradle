@@ -43,7 +43,12 @@ dependencies {
 			'org.jboss.resteasy:resteasy-servlet-initializer:3.0.13.Final',
 			'org.jboss.resteasy:resteasy-guice:3.0.13.Final',
 			'org.jboss.resteasy:resteasy-jaxb-provider:3.0.13.Final',
-			'org.jboss.resteasy:resteasy-jettison-provider:3.0.13.Final'
+			'org.jboss.resteasy:resteasy-jackson2-provider:3.0.13.Final',
+			'com.fasterxml.jackson.core:jackson-core:2.5.4',	// 2.6.3 has to wait for RESTEasy 3.0.14.Final (see: https://issues.jboss.org/browse/RESTEASY-1202)
+			'com.fasterxml.jackson.core:jackson-databind:2.5.4',
+			'com.fasterxml.jackson.core:jackson-annotations:2.5.4',
+			'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.5.4',
+			'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.5.4'
 
     testCompile	'junit:junit:4.12'
 
