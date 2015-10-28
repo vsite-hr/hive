@@ -129,7 +129,7 @@ public class PostgresDao extends JdbcDao {
 		StringBuilder queryBuilder = new StringBuilder(1000);
 		queryBuilder.append("SELECT * FROM sensors WHERE true");
 		if (filter.getName() != null)
-			queryBuilder.append(" AND lower(sensor_name) = lower(?)");
+			queryBuilder.append(" AND lower(sensor_name) LIKE '%' || lower(?) || '%'");
 		queryBuilder.append(" LIMIT ? OFFSET ?");
 	    try (PreparedStatement statement = getConn().prepareStatement(queryBuilder.toString())) {
 			int index = 0;
