@@ -1,0 +1,18 @@
+#!/bin/sh
+
+
+if test ! -e db.config; then
+	echo "Would you be so kind as to look into the db.template.config file and create"
+	echo "your own db.config that corresponds to your local database configuration."
+	echo "I'm sorry, but I can't continue until you do so!"
+	echo " "
+	exit 1
+fi
+. ./db.config
+
+echo "Recreating test data in database $DB_NAME on server $DB_HOST:$DB_PORT as user $DB_USER:"
+
+psql -U $DB_USER -h $DB_HOST -p $DB_PORT -f test_data.sql $DB_NAME
+
+echo "*** Vacuuming database"
+echo "vacuum full analyze;" | psql -U $DB_USER -h $DB_HOST -p $DB_PORT $DB_NAME

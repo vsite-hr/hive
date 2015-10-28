@@ -50,6 +50,9 @@ dependencies {
 			'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.5.4',
 			'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.5.4'
 
+	runtime	'org.postgresql:postgresql:9.4-1204-jdbc42',
+			'com.h2database:h2:1.4.190'
+
     testCompile	'junit:junit:4.12'
 
 }

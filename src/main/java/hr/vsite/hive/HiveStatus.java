@@ -1,12 +1,9 @@
 package hr.vsite.hive;
 
-import javax.inject.Inject;
-
 public class HiveStatus {
 
-	@Inject
-	HiveStatus(HiveProperties props) {
-		this.version = props.getVersion();
+	HiveStatus() {
+		this.version = HiveProperties.get().getVersion();
 	}
 
 	public String getVersion() { return version; }

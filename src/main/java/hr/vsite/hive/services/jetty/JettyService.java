@@ -2,7 +2,6 @@ package hr.vsite.hive.services.jetty;
 
 import java.io.InputStream;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.eclipse.jetty.server.Server;
@@ -10,7 +9,6 @@ import org.eclipse.jetty.xml.XmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import hr.vsite.hive.HiveConfiguration;
 import hr.vsite.hive.services.AbstractService;
 
 @Singleton
@@ -18,9 +16,8 @@ public class JettyService extends AbstractService {
 
 	public static final String Key = "jetty";
 
-	@Inject
-	public JettyService(HiveConfiguration conf) {
-		super(conf, Key);
+	public JettyService() {
+		super(Key);
 	}
 
 	@Override

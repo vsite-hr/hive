@@ -1,0 +1,40 @@
+#!/bin/sh
+
+
+if test ! -e db.config; then
+	echo "Would you be so kind as to look into the db.template.config file and create"
+	echo "your own db.config that corresponds to your local database configuration."
+	echo "I'm sorry, but I can't continue until you do so!"
+	echo " "
+	exit 1
+fi
+. ./db.config
+
+echo "Recreating database $DB_NAME schema on server $DB_HOST:$DB_PORT as user $DB_USER:"
+
+HOWMANYOFTHEM=`psql -lt -U $DB_USER -h $DB_HOST | grep " $DB_NAME " | wc -l`
+
+if test $HOWMANYOFTHEM -eq 1; then
+	dropdb -U $DB_USER -h $DB_HOST -p $DB_PORT $DB_NAME
+	ERROR_LEVEL=$?
+	if test "$ERROR_LEVEL" != "0"; then
+		echo "Can't drop database! Recreate can't continue!"
+		exit 1
+	fi
+fi
+
+if test $HOWMANYOFTHEM -gt 1; then
+	echo "Something is seriousley wrong! Do notify Mike, please! :)"
+	exit 1
+fi
+
+createdb -U $DB_USER -h $DB_HOST -p $DB_PORT -T template0 -E UTF8 -l "en_US.utf8" $DB_NAME
+
+echo "*** Recreating database schema"
+psql -U $DB_USER -h $DB_HOST -p $DB_PORT -f schema.sql $DB_NAME
+
+echo "*** Inserting system startup data"
+psql -U $DB_USER -h $DB_HOST -p $DB_PORT -f startup_data.sql $DB_NAME
+
+echo "*** Vacuuming database"
+echo "vacuum full analyze;" | psql -U $DB_USER -h $DB_HOST -p $DB_PORT $DB_NAME

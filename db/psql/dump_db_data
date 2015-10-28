@@ -1,0 +1,14 @@
+#!/bin/sh
+
+if test ! -e db.config; then
+	echo "Would you be so kind as to look into the db.config.sample file and create"
+	echo "your own db.config that coresponds to your local database configuration."
+	echo "I'm sorry, but I can't continue untill you do so!"
+	echo " "
+	exit 1
+fi
+. ./db.config
+                                        
+echo "Dumping database $DB_NAME data from server $DB_HOST:$DB_PORT as user $DB_USER:"
+
+pg_dump -U $DB_USER -h $DB_HOST -p $DB_PORT $DB_NAME --ignore-version --no-owner --no-reconnect --data-only --inserts --column-inserts --disable-triggers --exclude-table=stems --exclude-table=stop_words --exclude-table=news --exclude-table=news_keywords --exclude-table=_missed_terms --exclude-table=_stems_full --exclude-table=_stems_new | grep --invert-match -e '^--' > current_data.sql

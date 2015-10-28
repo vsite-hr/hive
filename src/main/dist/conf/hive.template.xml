@@ -10,6 +10,15 @@
 		<!-- Poor guy that get all the spam from app :) -->
 		<SupervisorAddress>poor.guy@vsite.hr</SupervisorAddress>
 
+		<dao>
+			<!-- Which DAO implementation to use (use only one) -->
+			<Class>hr.vsite.hive.dao.NullDao</Class>
+			<!-- Supported DAOs are: -->
+			<!-- hr.vsite.hive.dao.NullDao -->		<!-- void implementation, does not store anything -->
+			<!-- hr.vsite.hive.dao.PostgresDao -->	<!-- PostgreSQL (see init scripts in db/psql/) -->
+			<!-- hr.vsite.hive.dao.H2Dao -->		<!-- H2 in-memory database -->
+		</dao>
+		
 		<services>
 		
 			<jetty>
