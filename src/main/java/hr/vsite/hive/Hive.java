@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hr.vsite.hive.services.Service;
+import hr.vsite.hive.services.javafx.JavaFxService;
 import hr.vsite.hive.services.jetty.JettyService;
 
 public class Hive {
@@ -38,6 +39,7 @@ public class Hive {
 		// TODO use discovery (use injector.findBindingsByType maybe?)
 		serviceClasses = new HashSet<Class<? extends Service>>();
 		serviceClasses.add(JettyService.class);
+		serviceClasses.add(JavaFxService.class);
 		
 		initServices();
 		

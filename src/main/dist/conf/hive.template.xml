@@ -25,6 +25,10 @@
 				<Enabled>true</Enabled>
 			</jetty>
 			
+			<javafx>
+				<Enabled>true</Enabled>
+			</javafx>
+			
 		</services>
 
 		<!-- Garbageman cleans old stuff, keeping only data from DaysBack days -->
