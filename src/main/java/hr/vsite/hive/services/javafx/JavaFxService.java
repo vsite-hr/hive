@@ -27,7 +27,7 @@ public class JavaFxService extends AbstractService {
 		appThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Application.launch(JavaFxApplication.class);
+				Application.launch(FxApplication.class);
 			}
 		});
 
