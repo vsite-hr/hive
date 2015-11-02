@@ -1,0 +1,30 @@
+<html 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+>
+	<body>
+	
+		<ui:composition template="common/layout.xhtml">
+			<ui:define name="content">
+				<h:form id="helloWorld">
+					<h1>Welcome to the Hive of machines that go &lt;TICK&gt;!</h1>
+
+					<h3><h:outputText id="message" value="#{helloWorldBean.message}" /></h3>
+
+					<p>
+						<h:commandButton value="PLease tick!" actionListener="#{helloWorldBean.incrementCounter}" update="counter"/>
+						# of clicks: <h:outputText id="counter" value="#{helloWorldBean.counter}" />
+						<br />
+						Please contact supervisor @ <h:outputText value="#{helloWorldBean.supervisor}" />
+					</p>
+
+					<p>
+						<h:commandButton value="Click Me!" onclick="alert('See! We\\'ve already ticked #{helloWorldBean.counter} times! :-D');" />
+					</p>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

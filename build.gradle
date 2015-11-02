@@ -22,6 +22,11 @@ startScripts {
 
 repositories {
     jcenter()
+    mavenCentral()
+}
+
+configurations {
+	provided
 }
 
 dependencies {
@@ -41,7 +46,14 @@ dependencies {
 			'org.eclipse.jetty.aggregate:jetty-all:9.3.5.v20151012',
 			'org.jboss.resteasy:resteasy-jaxrs-all:3.0.13.Final',
 			'org.jboss.resteasy:resteasy-servlet-initializer:3.0.13.Final',
-			'org.jboss.resteasy:resteasy-guice:3.0.13.Final'
+			'org.jboss.resteasy:resteasy-guice:3.0.13.Final',
+			'com.sun.faces:jsf-api:2.2.12',
+			'com.sun.faces:jsf-impl:2.2.12',
+			'javax.el:el-api:2.2',
+			'org.glassfish.web:el-impl:2.2',
+			'javax.servlet.jsp:jsp-api:2.2'
+
+	provided 'javax.servlet:javax.servlet-api:3.1.0'
 
     testCompile	'junit:junit:4.12'
 

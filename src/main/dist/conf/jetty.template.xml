@@ -81,6 +81,14 @@
 					<Set name="contextPath">/</Set>
 					<Set name="war">./war</Set>
 					<Set name="parentLoaderPriority">true</Set>
+					<Call name="setInitParameter">
+						<Arg>facelets.DEVELOPMENT</Arg>
+						<Arg>true</Arg>
+					</Call>
+					<Call name="setInitParameter">
+						<Arg>com.sun.faces.expressionFactory</Arg>
+						<Arg>com.sun.el.ExpressionFactoryImpl</Arg>
+					</Call>
 				</New>
 			</Set>
 		</New>

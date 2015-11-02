@@ -28,12 +28,25 @@
 
 	<!-- NOTE: do not configure servlets and filters here, but in hr.vsite.hive.services.jetty.rest.HiveServletModule -->
 
+    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>
+   	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
 	<session-config>
 		<session-timeout>10080</session-timeout>	<!--  minutes (10080 minutes == 168 hours == 7 days) -->
 	</session-config>
 	
 	<welcome-file-list>
-		<welcome-file>/index.html</welcome-file>
+		<welcome-file>/index.xhtml</welcome-file>
 	</welcome-file-list>
 	
 	<error-page>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.0"
+			  xmlns="http://java.sun.com/xml/ns/javaee" 
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+			  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+	<factory>
+		<application-factory>hr.vsite.hive.services.jetty.faces.application.HiveFacesApplicationFactoryWrapper</application-factory>
+	</factory>
+
+	<!-- ============================== Managed Beans ========== -->
+	<managed-bean>
+		<managed-bean-name>helloWorldBean</managed-bean-name>
+		<managed-bean-class>hr.vsite.hive.services.jetty.faces.bean.HelloWorldBean</managed-bean-class>
+		<managed-bean-scope>view</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>aboutBean</managed-bean-name>
+		<managed-bean-class>hr.vsite.hive.services.jetty.faces.bean.AboutBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+
+	<!-- ============================== Navigation ========== -->
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>home</from-outcome>
+			<to-view-id>/index</to-view-id>
+		</navigation-case>
+
+		<navigation-case>
+			<from-outcome>about</from-outcome>
+			<to-view-id>/about</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>
