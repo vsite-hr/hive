@@ -4,18 +4,23 @@ import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
 import hr.vsite.hive.HiveConfiguration;
+import hr.vsite.hive.HiveStatus;
 
 @ManagedBean
 public class AboutBean {
 
-	@Inject
-	public void setConfig(HiveConfiguration conf) {
-		this.conf = conf;
+	public String getSupervisor() {
+		return HiveConfiguration.get().getString("hive.SupervisorAddress");
 	}
 
-	public String getSupervisor() {
-		return conf.getString("hive.SupervisorAddress");
+	@Inject
+	public void setHiveStatus(HiveStatus hiveStatus) {
+		this.hiveStatus = hiveStatus;
 	}
-   
-	private HiveConfiguration conf;
+
+	public String getHiveVersion() {
+		return hiveStatus.getVersion();
+	}
+
+	private HiveStatus hiveStatus;
 }

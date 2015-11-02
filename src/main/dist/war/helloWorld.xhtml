@@ -9,15 +9,13 @@
 		<ui:composition template="common/layout.xhtml">
 			<ui:define name="content">
 				<h:form id="helloWorld">
-					<h1>Welcome to the Hive of machines that go &lt;TICK&gt;!</h1>
+					<h1>Welcome to the Hive of machines that go &lt;TICK&gt;! [v<h:outputText value="#{helloWorldBean.hiveVersion}" />]</h1>
 
 					<h3><h:outputText id="message" value="#{helloWorldBean.message}" /></h3>
 
 					<p>
-						<h:commandButton value="PLease tick!" actionListener="#{helloWorldBean.incrementCounter}" update="counter"/>
-						# of clicks: <h:outputText id="counter" value="#{helloWorldBean.counter}" />
-						<br />
-						Please contact supervisor @ <h:outputText value="#{helloWorldBean.supervisor}" />
+						<h:commandButton value="Do tick" actionListener="#{helloWorldBean.incrementCounter}" update="counter"/>
+						# of ticks: <h:outputText id="counter" value="#{helloWorldBean.counter}" />
 					</p>
 
 					<p>

@@ -3,7 +3,7 @@ package hr.vsite.hive.services.jetty.faces.bean;
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
-import hr.vsite.hive.HiveConfiguration;
+import hr.vsite.hive.HiveStatus;
 
 @ManagedBean
 public class HelloWorldBean {
@@ -12,17 +12,16 @@ public class HelloWorldBean {
 	}
 
 	@Inject
-	public void setConfig(HiveConfiguration conf) {
-		this.conf = conf;
+	public void setHiveStatus(HiveStatus hiveStatus) {
+		this.hiveStatus = hiveStatus;
+	}
+
+	public String getHiveVersion() {
+		return hiveStatus.getVersion();
 	}
 
 	public String getMessage() {
-		return "World tickes since 1.1.1970. #" + (System.currentTimeMillis() / 1000);
-	}
-
-
-	public String getSupervisor() {
-		return conf.getString("hive.SupervisorAddress");
+		return "World ticks since 1.1.1970. #" + (System.currentTimeMillis() / 1000);
 	}
 
     public int getCounter() {
@@ -37,6 +36,6 @@ public class HelloWorldBean {
     	// NOOP
     }
    
-	private HiveConfiguration conf;
+	private HiveStatus hiveStatus;
 	private int counter;
 }
