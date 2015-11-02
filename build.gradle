@@ -22,7 +22,6 @@ startScripts {
 
 repositories {
     jcenter()
-    mavenCentral()
 }
 
 configurations {
