@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import hr.vsite.hive.services.Service;
+import hr.vsite.hive.services.javafx.JavaFxService;
 import hr.vsite.hive.services.jetty.JettyService;
 
 public class Hive {
@@ -28,18 +29,17 @@ public class Hive {
 
 	public void	init() throws Exception {
         
-		props = HiveInjector.get().getInstance(HiveProperties.class);
-		conf = HiveInjector.get().getInstance(HiveConfiguration.class);
 		eventBus = HiveInjector.get().getInstance(HiveEventBus.class);
 		scheduler = HiveInjector.get().getInstance(Scheduler.class);
 		
 		log.info("**************************************************");
-		log.info("Welcome to Hive {}...", props.getVersion());
+		log.info("Welcome to Hive {}...", HiveProperties.get().getVersion());
 		log.info("**************************************************");
 
 		// TODO use discovery (use injector.findBindingsByType maybe?)
 		serviceClasses = new HashSet<Class<? extends Service>>();
 		serviceClasses.add(JettyService.class);
+		serviceClasses.add(JavaFxService.class);
 		
 		initServices();
 		
@@ -51,7 +51,7 @@ public class Hive {
 	
 	public void start() throws Exception {
 		
-		log.info("Hive {} starting...", props.getVersion());
+		log.info("Hive {} starting...", HiveProperties.get().getVersion());
 		
 		startServices();
 		
@@ -63,7 +63,7 @@ public class Hive {
 	
 	public void stop() {
 		
-		log.info("Hive {} stopping...", props.getVersion());
+		log.info("Hive {} stopping...", HiveProperties.get().getVersion());
 
 		stopServices();
 
@@ -79,7 +79,7 @@ public class Hive {
 	
 	public void destroy() {
 
-		log.info("Hive {} is initializing shutdown...", props.getVersion());
+		log.info("Hive {} is initializing shutdown...", HiveProperties.get().getVersion());
 		
 		destroyServices();
 
@@ -92,7 +92,7 @@ public class Hive {
 		eventBus.post(new HiveDestroyEvent(this));
 		eventBus.shutdown();
 		
-		log.info("Hive {} successfully shut down - bye!", props.getVersion());
+		log.info("Hive {} successfully shut down - bye!", HiveProperties.get().getVersion());
 		
 	}
 
@@ -156,7 +156,7 @@ public class Hive {
 			JobBuilder.newJob(Garbageman.class)
 				.build(),
 			trigger = TriggerBuilder.newTrigger()
-				.withSchedule(CronScheduleBuilder.cronSchedule(conf.getString(scheduleKey)))
+				.withSchedule(CronScheduleBuilder.cronSchedule(HiveConfiguration.get().getString(scheduleKey)))
 				.build()
 		);
 
@@ -167,8 +167,6 @@ public class Hive {
 	private static final Logger log = LoggerFactory.getLogger(Hive.class);
 	private static Hive instance = null;
 
-	private HiveProperties props = null;
-	private HiveConfiguration conf = null;
 	private HiveEventBus eventBus = null;
 	private Scheduler scheduler = null;
 	private Set<Class<? extends Service>> serviceClasses;

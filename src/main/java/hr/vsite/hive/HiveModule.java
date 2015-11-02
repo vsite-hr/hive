@@ -14,11 +14,10 @@ public class HiveModule extends AbstractModule {
 
 	@Override 
 	protected void configure() {
-		bind(HiveProperties.class);
-		bind(HiveConfiguration.class);
 		bind(HiveEventBus.class);
 		bind(JobFactory.class).to(GuiceJobFactory.class);
 		bind(Garbageman.class);
+		bind(HiveStatus.class);
 	}
 
 	@Provides

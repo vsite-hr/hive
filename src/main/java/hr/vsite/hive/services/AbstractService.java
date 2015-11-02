@@ -14,9 +14,9 @@ import hr.vsite.hive.HiveStopEvent;
  */ 
 public abstract class AbstractService implements Service {
 
-	public AbstractService(HiveConfiguration conf, String key) {
+	public AbstractService(String key) {
 		this.key = key;
-		this.enabled = conf.getBoolean("hive.services." + key + ".Enabled");
+		this.enabled = HiveConfiguration.get().getBoolean("hive.services." + key + ".Enabled");
 	}
 
 	@Override

@@ -51,7 +51,17 @@ dependencies {
 			'com.sun.faces:jsf-impl:2.2.12',
 			'javax.el:el-api:2.2',
 			'org.glassfish.web:el-impl:2.2',
-			'javax.servlet.jsp:jsp-api:2.2'
+			'javax.servlet.jsp:jsp-api:2.2',
+			'org.jboss.resteasy:resteasy-jaxb-provider:3.0.13.Final',
+			'org.jboss.resteasy:resteasy-jackson2-provider:3.0.13.Final',
+			'com.fasterxml.jackson.core:jackson-core:2.5.4',	// 2.6.3 has to wait for RESTEasy 3.0.14.Final (see: https://issues.jboss.org/browse/RESTEASY-1202)
+			'com.fasterxml.jackson.core:jackson-databind:2.5.4',
+			'com.fasterxml.jackson.core:jackson-annotations:2.5.4',
+			'com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.5.4',
+			'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.5.4'
+
+	runtime	'org.postgresql:postgresql:9.4-1204-jdbc42',
+			'com.h2database:h2:1.4.190'
 
 	provided 'javax.servlet:javax.servlet-api:3.1.0'
 

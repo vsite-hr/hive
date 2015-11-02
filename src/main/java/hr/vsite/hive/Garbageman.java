@@ -15,8 +15,8 @@ import hr.vsite.hive.dao.HiveDao;
 public class Garbageman implements Job {
 
 	@Inject
-	Garbageman(HiveConfiguration conf, HiveDao dao) {
-		daysBack = conf.getInt("hive.garbageman.DaysBack");
+	Garbageman(HiveDao dao) {
+		daysBack = HiveConfiguration.get().getInt("hive.garbageman.DaysBack");
 		this.dao = dao;
 	}
 

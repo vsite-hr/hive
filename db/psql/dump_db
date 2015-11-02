@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if test ! -e db.config; then
+	echo "Would you be so kind as to look into the db.template.config file and create"
+	echo "your own db.config that corresponds to your local database configuration."
+	echo "I'm sorry, but I can't continue until you do so!"
+	echo " "
+	exit 1
+fi
+. ./db.config
+
+echo "Dumping database $DB_NAME schema from server $DB_HOST:$DB_PORT as user $DB_USER:"
+
+pg_dump -h $DB_HOST -U $DB_USER $DB_NAME -p $DB_PORT --ignore-version --no-owner --schema-only | grep --invert-match -e '^--' > schema.sql
+

@@ -1,19 +1,27 @@
 package hr.vsite.hive;
 
 import java.nio.file.FileSystems;
-import java.nio.file.Path;
 
-import javax.inject.Singleton;
+import java.nio.file.Path;
 
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Singleton
+/**
+ * Main Hive configuration.
+ * Since it is used in configuring Guice DI, it can not be itself managed by Guice.
+ */
 public class HiveConfiguration extends XMLConfiguration {
 
-	HiveConfiguration() {
+	public static HiveConfiguration get() {
+		if (instance == null)
+			instance = new HiveConfiguration();
+		return instance;
+	}
+	
+	private HiveConfiguration() {
     	
 		super();
         
@@ -41,7 +49,8 @@ public class HiveConfiguration extends XMLConfiguration {
 	
     private static final Logger log = LoggerFactory.getLogger(HiveConfiguration.class);
 	private static final long serialVersionUID = 1L;
-
+	private static HiveConfiguration instance = null;
+	
     private final Path dataPath;
     private final String supervisorAddress;
 

@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import javax.inject.Singleton;
-
-@Singleton
+/**
+ * Main Hive properties.
+ * Since it is used in configuring Guice DI, it can not be itself managed by Guice.
+ */
 public class HiveProperties extends Properties {
 
-	HiveProperties() {
+	public static HiveProperties get() {
+		if (instance == null)
+			instance = new HiveProperties();
+		return instance;
+	}
+	
+	private HiveProperties() {
 
 		super();
 
@@ -25,7 +32,8 @@ public class HiveProperties extends Properties {
 	public String getVersion() { return version; }
 
 	private static final long serialVersionUID = 1L;
-
+	private static HiveProperties instance = null;
+	
 	private final String version;
 
 }
